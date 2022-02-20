@@ -1,7 +1,7 @@
 // Created By: junmin.ma
 // Description: <description>
 // Date: 2022-01-09 12:38
-package leetcode
+package leetcode_1629
 
 //https://leetcode-cn.com/problems/slowest-key/
 func slowestKey(releaseTimes []int, keysPressed string) byte {

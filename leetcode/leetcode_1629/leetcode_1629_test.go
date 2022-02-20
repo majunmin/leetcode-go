@@ -1,7 +1,7 @@
 // Created By: junmin.ma
 // Description: <description>
 // Date: 2022-01-09 12:49
-package leetcode
+package leetcode_1629
 
 import (
 	"fmt"
