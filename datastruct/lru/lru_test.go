@@ -1,7 +1,7 @@
 // Created By: junmin.ma
 // Description: <description>
 // Date: 2022-03-21 00:17
-package datastruct
+package lru
 
 import (
 	"fmt"
