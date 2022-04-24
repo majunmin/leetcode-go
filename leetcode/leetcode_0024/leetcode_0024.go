@@ -17,11 +17,10 @@ func iterSolution(head *common.ListNode) *common.ListNode {
 		return head
 	}
 	// process
-	nextNode := head.Next
-	tail := swapPairs(head.Next.Next)
-	head.Next = tail
-	nextNode.Next = head
-	return nextNode
+	newHead := head.Next
+	head.Next = swapPairs(head.Next.Next)
+	newHead.Next = head
+	return newHead
 }
 
 func recursiveSolution(head *common.ListNode) *common.ListNode {
