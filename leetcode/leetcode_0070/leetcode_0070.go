@@ -21,13 +21,21 @@ func iterSolution2(n int) int {
 // 利用双指针优化空间占用
 func iterSolution1(n int) int {
 	//双指针法, 当前结果 依赖于 前两个结果
-	p, q, result := 1, 1, 1
+	//p, q, result := 1, 1, 1
+	//for i := 2; i <= n; i++ {
+	//	result = p + q
+	//	p = q
+	//	q = result
+	//}
+	//return result
+	p, q := 1, 1
 	for i := 2; i <= n; i++ {
-		result = p + q
-		p = q
-		q = result
+		p = p + q
+		// swap p, q
+		p, q = q, p
 	}
-	return result
+
+	return q
 }
 
 func recursionSolution(n int) int {

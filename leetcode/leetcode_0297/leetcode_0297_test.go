@@ -26,6 +26,6 @@ func Test_Tree(t *testing.T) {
 
 func Test_TreeDeserilize(t *testing.T) {
 	codec := Constructor()
-	treeNode := codec.deserialize("1,2,3,nil,nil,4,5,nil,nil,nil,nil")
+	treeNode := codec.deserialize("1,2,nil,nil,3,4,nil,nil,5,nil,nil")
 	fmt.Println(treeNode)
 }
