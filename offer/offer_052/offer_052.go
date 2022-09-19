@@ -1,0 +1,27 @@
+package offer_052
+
+import . "github.com/majunmin/leetcode-go/offer"
+
+//https://leetcode.cn/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/?envType=study-plan&id=lcof
+func getIntersectionNode(headA, headB *ListNode) *ListNode {
+	if headA == nil || headB == nil {
+		return nil
+	}
+
+	p1, p2 := headA, headB
+	for p1 != p2 {
+		//
+		if p1 == nil {
+			p1 = headB
+		} else {
+			p1 = p1.Next
+		}
+		//
+		if p2 == nil {
+			p2 = headA
+		} else {
+			p2 = p2.Next
+		}
+	}
+	return p1
+}
