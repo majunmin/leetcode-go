@@ -1,43 +1,75 @@
 package offer_041
 
+import (
+	"container/heap"
+	"sort"
+)
+
 // https://leetcode.cn/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/?envType=study-plan&id=lcof
 type MedianFinder struct {
-	arr    []int
-	length int
+	maxHp, minHp hp //左边是 大顶堆 👈🏻 👉🏻  右边是 小顶堆
 }
 
 /** initialize your data structure here. */
 func Constructor() MedianFinder {
-	return MedianFinder{
-		arr:    make([]int, 0, 16),
-		length: 0,
-	}
+	return MedianFinder{}
 }
 
 func (this *MedianFinder) AddNum(num int) {
-
-	for i := 0; i < this.length; i++ {
-		if this.arr[i] > num {
-			this.arr = append(this.arr[:i], append([]int{num}, this.arr[i:]...)...)
-			this.length++
-			return
-		}
+	maxQ, minQ := &this.maxHp, &this.minHp
+	if this.maxHp.Len() == 0 {
+		heap.Push(maxQ, num)
+		return
 	}
 
-	this.arr = append(this.arr, num)
-	this.length++
+	if this.maxHp.Len() == this.minHp.Len() {
+		rightVal := heap.Pop(minQ).(int)
+		heap.Push(minQ, rightVal)
+		if num <= rightVal {
+			heap.Push(maxQ, -num)
+			return
+		}
+		heap.Push(maxQ, -heap.Pop(minQ).(int))
+		heap.Push(minQ, num)
+
+	} else {
+		leftVal := -heap.Pop(maxQ).(int)
+		heap.Push(maxQ, leftVal)
+		if num >= leftVal {
+			heap.Push(minQ, num)
+			return
+		}
+		heap.Push(minQ, heap.Pop(maxQ).(int))
+		heap.Push(maxQ, -num)
+
+	}
 }
 
 func (this *MedianFinder) FindMedian() float64 {
-	if this.length == 0 {
+	if this.maxHp.Len() == 0 {
 		return 0
 	}
-	mid := this.length / 2
-	if this.length&1 == 1 { //奇数
-		return float64(this.arr[mid])
+	maxQ, minQ := &this.maxHp, &this.minHp
+
+	if maxQ.Len() == minQ.Len() {
+		return float64(-heap.Pop(maxQ).(int)+heap.Pop(minQ).(int)) / 2
 	} else {
-		return float64(this.arr[mid]+this.arr[mid-1]) / 2
+		return float64(-heap.Pop(maxQ).(int))
 	}
+}
+
+type hp struct {
+	sort.IntSlice
+}
+
+func (h *hp) Push(x interface{}) {
+	h.IntSlice = append(h.IntSlice, x.(int))
+}
+
+func (h *hp) Pop() interface{} {
+	v := h.IntSlice[len(h.IntSlice)-1]
+	h.IntSlice = h.IntSlice[:len(h.IntSlice)-1]
+	return v
 }
 
 /**

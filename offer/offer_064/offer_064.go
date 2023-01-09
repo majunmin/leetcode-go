@@ -1,48 +1,31 @@
 package offer_064
 
-type ListNode struct {
-	Val  int
-	Next *ListNode
+// https://leetcode.cn/problems/qiu-12n-lcof/?envType=study-plan&id=lcof
+// 等差数列  sum = n(n+1)/2  => n(n+1) >> 1
+func sumNums(n int) int {
+
+	ans := 0
+	num, temp := n, n+1
+	// 快速乘法
+	// 这个方法经常被用于两数相乘取模的场景，如果两数相乘已经超过数据范围，但取模后不会超过，我们就可以利用这个方法来拆位取模计算贡献，保证每次运算都在数据范围内。
+	for temp > 0 {
+		if temp&1 == 1 {
+			ans += num
+		}
+		temp >>= 1
+		num <<= 1
+	}
+	return ans >> 1
 }
 
-//https://leetcode.cn/problems/fan-zhuan-lian-biao-lcof/?envType=study-plan&id=lcof
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
-func reverseList(head *ListNode) *ListNode {
-	//return recursiveSolution(head)
-	return iterSolution(head)
-}
-
-func iterSolution(head *ListNode) *ListNode {
-	if head == nil || head.Next == nil {
-		return head
+func solution1(n int) int {
+	ans := 0
+	var sum func(int) bool
+	sum = func(n int) bool {
+		ans += n
+		// terminate
+		return n > 0 && sum(n-1)
 	}
-	//
-	dummyNode := &ListNode{}
-	node := head
-	for node != nil {
-		tmp := node.Next
-		node.Next = dummyNode.Next
-		dummyNode.Next = node
-		node = tmp
-	}
-	return dummyNode.Next
-}
-
-func recursiveSolution(head *ListNode) *ListNode {
-	// terminate
-	if head == nil || head.Next == nil {
-		return head
-	}
-	// process
-
-	next := recursiveSolution(head.Next)
-	head.Next.Next = head
-	head.Next = nil
-	return next
+	sum(n)
+	return ans
 }

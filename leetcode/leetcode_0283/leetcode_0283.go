@@ -9,6 +9,7 @@ func moveZeroes(nums []int) {
 
 // solution 双指针
 func iterSolution(nums []int) {
+	// https://leetcode.com/problems/move-zeroes/solutions/172432/the-easiest-but-unusual-snowball-java-solution-beats-100-o-n-clear-explanation/?orderBy=most_votes
 	if len(nums) <= 1 {
 		return
 	}
@@ -27,7 +28,7 @@ func iterSolution(nums []int) {
 	}
 }
 
-//双指针 解法  swap
+// 双指针 解法  swap
 // 左指针 左边 均为 非0
 // 右指针到左指针 处 均为 0
 func solutionSwap(nums []int) {

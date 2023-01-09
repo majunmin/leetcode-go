@@ -1,8 +1,8 @@
-package offfer_034
+package offer_034
 
 import . "github.com/majunmin/leetcode-go/offer"
 
-//https://leetcode.cn/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/?envType=study-plan&id=lcof
+// https://leetcode.cn/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/?envType=study-plan&id=lcof
 func pathSum(root *TreeNode, target int) [][]int {
 	if root == nil {
 		return nil
