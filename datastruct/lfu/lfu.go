@@ -1,6 +1,4 @@
-// Created By: junmin.ma
-// Description: <description>
-// Date: 2022-03-21 23:45
+// Package lfu cache
 package lfu
 
 type Node struct {
@@ -83,10 +81,6 @@ func (lfu *LFUCache) Get(key int) int {
 		//需要扩容
 		lfu.frequencyList = append(lfu.frequencyList, NewDoubleLinkList(node.frequency))
 	}
-	if lfu.size == lfu.capacity {
-		lfu.removeOldest()
-	}
-
 	lfu.addToHead(node)
 	//lfu.cache[key] = node
 	return node.value
