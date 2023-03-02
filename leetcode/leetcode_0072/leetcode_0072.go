@@ -1,6 +1,7 @@
 package leetcode_0072
 
-//	https://leetcode.cn/problems/edit-distance/
+// https://leetcode.cn/problems/edit-distance/
+// 题解:https://leetcode.cn/problems/edit-distance/solutions/188814/dong-tai-gui-hua-java-by-liweiwei1419/
 //
 // 题目是  给出最短编辑距离, 而不是  给出所有遍历结果
 func minDistance(word1 string, word2 string) int {
