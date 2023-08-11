@@ -1,3 +1,3 @@
 module github.com/majunmin/leetcode-go
 
-go 1.17
+go 1.20
