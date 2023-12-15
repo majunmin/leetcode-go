@@ -5,7 +5,7 @@ package leetcode_0024
 
 import "github.com/majunmin/leetcode-go/common"
 
-// swapPairs Definition for singly-linked list.
+// swapPairs Definition for singly-linked link_list.
 func swapPairs(head *common.ListNode) *common.ListNode {
 	return iterSolution(head)
 

@@ -6,7 +6,7 @@ package leetcode_0206
 import "github.com/majunmin/leetcode-go/common"
 
 /**
- * Definition for singly-linked list.
+ * Definition for singly-linked link_list.
  * type ListNode struct {
  *     Val int
  *     Next *ListNode
