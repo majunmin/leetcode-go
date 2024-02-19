@@ -2,7 +2,7 @@ package leetcode_0242
 
 import "sort"
 
-//https://leetcode-cn.com/problems/valid-anagram/description/
+// https://leetcode-cn.com/problems/valid-anagram/description/
 func isAnagram(s string, t string) bool {
 	return arraySolution(s, t)
 }
@@ -28,7 +28,7 @@ func hashSolution(s string, t string) bool {
 
 }
 
-// 由于 string 仅由 26 个小写字母组成, 可以用一个数组 枚举出所有值
+// 由于 stringstr 仅由 26 个小写字母组成, 可以用一个数组 枚举出所有值
 func arraySolution(s string, t string) bool {
 	if len(s) != len(t) {
 		return false

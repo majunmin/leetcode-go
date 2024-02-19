@@ -21,22 +21,22 @@ func dpSolution2(prices []int) int {
 	for i := 0; i < len(prices); i++ {
 		preHoldStock := holdStock
 		preHoldCash := holdCash
-		holdStock = maxInt(preHoldStock, preHoldCash-prices[i])
-		holdCash = maxInt(preHoldCash, preHoldStock+prices[i])
+		holdStock = max(preHoldStock, preHoldCash-prices[i])
+		holdCash = max(preHoldCash, preHoldStock+prices[i])
 	}
 	return holdCash
 }
 
 // 状态 为  持有 股票 & 非持有股票 是  持有的最大金币数
 // 某天的行为
-//      - 买入股票
-//      - 卖出股票
-//      - 什么也不做
+//   - 买入股票
+//   - 卖出股票
+//   - 什么也不做
+//
 // dp[0][0] = -prices[0]
 // dp[0][1] = 0
 // dp[i][0] = max(dp[i-1][0], dp[i-1][1] - prices[0])
 // dp[i][0] = max(dp[i-1][1], dp[i-1][0] + prices[0])
-
 func dpSolution1(prices []int) int {
 	n := len(prices)
 	// param check
@@ -50,16 +50,8 @@ func dpSolution1(prices []int) int {
 	// dp[i][1] 不持有股票的最大收益
 	dp[0][0], dp[0][1] = -prices[0], 0
 	for i := 1; i < n; i++ {
-		dp[i][0] = maxInt(dp[i-1][0], dp[i-1][1]-prices[i])
-		dp[i][1] = maxInt(dp[i-1][1], dp[i-1][0]+prices[i])
+		dp[i][0] = max(dp[i-1][0], dp[i-1][1]-prices[i])
+		dp[i][1] = max(dp[i-1][1], dp[i-1][0]+prices[i])
 	}
 	return dp[n-1][1]
-}
-
-func maxInt(a, b int) int {
-	if a > b {
-
-		return a
-	}
-	return b
 }

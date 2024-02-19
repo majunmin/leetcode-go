@@ -8,28 +8,25 @@ func maxProfit(prices []int) int {
 		return 0
 	}
 
-	min := math.MinInt
+	minVal := math.MinInt
 	mProfit := 0
 	for i := 0; i < len(prices); i++ {
-		if prices[i] < min {
-			min = prices[i]
-			continue
-		}
-		mProfit = maxInt(mProfit, prices[i]-min)
+		mProfit = max(mProfit, prices[i]+minVal)
+		minVal = max(minVal, -prices[i])
 	}
 	return mProfit
 }
 
-func maxInt(a int, b int) int {
-	if a > b {
-		return a
+func maxProfit2(prices []int) int {
+	if len(prices) <= 1 {
+		return 0
 	}
-	return b
-}
 
-func minInt(a int, b int) int {
-	if a < b {
-		return a
+	minVal := prices[0]
+	var mProfit int
+	for i := 1; i < len(prices); i++ {
+		mProfit = max(mProfit, prices[i]-minVal)
+		minVal = max(minVal, prices[i])
 	}
-	return b
+	return mProfit
 }

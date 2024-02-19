@@ -2,7 +2,7 @@ package leetcode_0590
 
 import . "github.com/majunmin/leetcode-go/common"
 
-//https://leetcode.cn/problems/n-ary-tree-postorder-traversal/
+// https://leetcode.cn/problems/n-ary-tree-postorder-traversal/
 func postorder(root *Node) []int {
 	//var result []int
 	//postorderHelper(root, &result)

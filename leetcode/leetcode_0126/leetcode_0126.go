@@ -46,9 +46,9 @@ func dfs(result *[][]string, curWord, endWord string, dict map[string][]string, 
 	}
 }
 
-// @return map[string][]string 记录中间变化的过程
+// @return map[stringstr][]stringstr 记录中间变化的过程
 func bfs(beginWord string, endWord string, wordSet map[string]bool) (map[string][]string, int, bool) {
-	//var result [][]string
+	//var result [][]stringstr
 	queue := []string{beginWord}
 	visited := make(map[string]struct{})
 	dict := make(map[string][]string)

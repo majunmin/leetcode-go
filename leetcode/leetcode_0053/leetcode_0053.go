@@ -52,10 +52,8 @@ func maxInt(a, b int) int {
 
 // 动态规划解法.
 // 理解 dp[i] 到已当前位置 截止 的  最大子序和.
-
 func dpSolution(nums []int) int {
 	// 计算前面的值  对后面值的增益
-
 	if len(nums) == 0 {
 		return 0
 	}
@@ -64,6 +62,8 @@ func dpSolution(nums []int) int {
 	dp := make([]int, len(nums))
 	// init state
 	dp[0] = nums[0]
+	// 递推公式
+	// dp[i] = max(nums[i], dp[i-1] + nums[i])
 	for i := 1; i < len(nums); i++ {
 		dp[i] = maxInt(nums[i], nums[i]+dp[i-1])
 		maxVal = maxInt(dp[i], maxVal)
