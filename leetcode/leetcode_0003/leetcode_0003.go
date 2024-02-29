@@ -33,3 +33,5 @@ func lengthOfLongestSubstring(s string) int {
 	}
 	return result
 }
+
+// 题解1:https://leetcode.cn/problems/longest-substring-without-repeating-characters/solutions/228576/longest-substring-without-repeating-characters-b-2/

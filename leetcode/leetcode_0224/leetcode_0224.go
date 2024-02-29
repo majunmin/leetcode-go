@@ -1,45 +1,72 @@
 package leetcode_0224
 
+import (
+	"strings"
+)
+
 // https://leetcode.cn/problems/basic-calculator/
 func calculate(s string) int {
 	// param check 校验表达式合法性
 	opStack := newStack[byte]()
 	numStack := newStack[int]()
-	for i := range s {
-		item := s[i]
-		if item == ' ' {
-			continue
-		}
-		if item >= '0' && item <= '9' {
-			numStack.push(int(item - '0'))
-		}
-		switch item {
-		case '(':
-			opStack.push(item)
-		case ')':
-		case '-':
-		case '+':
-			if opStack.len() > 0 && opStack.top() != '(' {
-				calc(opStack, numStack)
+	s = strings.ReplaceAll(s, " ", "")
+	for i := 0; i < len(s); i++ {
+		if isDigit(s[i]) {
+			var num int
+			for i < len(s) && isDigit(s[i]) {
+				num = num*10 + int(s[i]-'0')
+				i++
 			}
-			opStack.push(item)
+			i--
+			numStack.push(num)
+		} else {
+			switch s[i] {
+			case '(':
+				opStack.push(s[i])
+			case ')':
+				for !opStack.isEmpty() && opStack.top() != '(' {
+					calc(opStack, numStack)
+				}
+				opStack.pop() // 弹出左括号
+			default: // 运算符
+				// -1-2-3 ==> 0-1-2-3
+				// 1-2-(-3+1) ==> 1-2-(0-3+1)
+				// 1-2-(+3+1) ==> 1-2-(0+3+1)
+				if i == 0 || !opStack.isEmpty() && s[i-1] == '(' { // 对于 单操作数的运算符的优化
+					numStack.push(0)
+				}
+				for !opStack.isEmpty() && priority(opStack.top()) >= priority(s[i]) {
+					calc(opStack, numStack)
+				}
+				// 将栈中可以算的操作符 都算了,(todo: 优先级)
+				opStack.push(s[i])
+			}
 		}
 	}
+	for !opStack.isEmpty() {
+		calc(opStack, numStack)
+	}
+	return numStack.top()
+
 }
 
-func calc(opStack *stack[byte], numStack *stack[int]) int {
-	for opStack.len() > 0 && opStack.top() != '(' {
-		op := opStack.pop()
-		switch op {
-		case '+':
-			num1 := numStack.pop()
-			num2 := numStack.pop()
-			numStack.push(num1 + num2)
-		case '-':
-			num1 := numStack.pop()
-		}
+func calc(opStack *stack[byte], numStack *stack[int]) {
+	if numStack.len() < 2 {
+		return
 	}
-
+	b, a := numStack.pop(), numStack.pop() // 弹出两个运算数
+	op := opStack.pop()                    // 弹出运算符
+	//fmt.Printf("cal %d %d %d \n", a, op, b)
+	switch op {
+	case '+':
+		numStack.push(a + b)
+	case '-':
+		numStack.push(a - b)
+	case '*':
+		numStack.push(a * b)
+	case '/':
+		numStack.push(a / b)
+	}
 }
 
 type stack[T int | byte] struct {
@@ -78,6 +105,20 @@ func (s *stack[T]) isEmpty() bool {
 	return s.len() == 0
 }
 
+func isDigit(item byte) bool {
+	return item >= '0' && item <= '9'
+}
+
+func priority(op byte) int {
+	switch op {
+	case '-', '+':
+		return 1
+	case '*', '/':
+		return 2
+	}
+	return 0
+}
+
 func calculate2(s string) int {
 	opsStack := newStack[int]()
 	sign := 1
@@ -104,8 +145,4 @@ func calculate2(s string) int {
 		}
 	}
 	return result
-}
-
-func isDigit(item byte) bool {
-	return item >= '0' && item <= '9'
 }
