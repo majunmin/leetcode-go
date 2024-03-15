@@ -2,26 +2,48 @@ package leetcode
 
 import . "github.com/majunmin/leetcode-go/common"
 
-/**
- * Definition for singly-linked list.
- * type ListNode struct {
- *     Val int
- *     Next *ListNode
- * }
- */
 func reverseList(head *ListNode) *ListNode {
+	return solution3(head)
+}
+
+func solution3(head *ListNode) *ListNode {
 	if head == nil || head.Next == nil {
 		return head
 	}
-	dummyNode := &ListNode{}
-	current := head
-	for current != nil {
-		tmp := current.Next
-		// insert node into dummyList
-		current.Next = dummyNode.Next
-		dummyNode.Next = current
-		current = tmp
+	var prev *ListNode
+	cur := head
+	for cur != nil {
+		cur.Next = prev
+		prev = cur
+		cur = cur.Next
 	}
+	return prev
+}
 
+func iterSolution(head *ListNode) *ListNode {
+	// if
+	if head == nil || head.Next == nil {
+		return head
+	}
+	var dummyNode ListNode
+	for head != nil {
+		tmp := head.Next
+		head.Next = dummyNode.Next
+		dummyNode.Next = head
+		head = tmp
+	}
 	return dummyNode.Next
+
+}
+
+func recursiveSolution(head *ListNode) *ListNode {
+	// param check
+	if head == nil || head.Next == nil {
+		return head
+	}
+	//
+	tail := recursiveSolution(head.Next)
+	head.Next.Next = head
+	head.Next = nil
+	return tail
 }
