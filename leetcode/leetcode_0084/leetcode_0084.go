@@ -1,14 +1,9 @@
 package leetcode_0084
 
-func maxInt(a, b int) int {
-	if a >= b {
-		return a
-	}
-	return b
-}
-
-//https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+// https://leetcode-cn.com/problems/largest-rectangle-in-histogram/
+// 题解: https://leetcode.cn/problems/largest-rectangle-in-histogram/solutions/142012/bao-li-jie-fa-zhan-by-liweiwei1419/
 func largestRectangleArea(heights []int) int {
+	// 哨兵优化代码
 	if len(heights) == 0 {
 		return 0
 	}
@@ -17,6 +12,7 @@ func largestRectangleArea(heights []int) int {
 	}
 
 	newHeights := make([]int, len(heights)+2)
+	copy(newHeights[1:], heights)
 	for i, h := range heights {
 		newHeights[i+1] = h
 	}
@@ -32,7 +28,7 @@ func largestRectangleArea(heights []int) int {
 
 			height := newHeights[top]
 			width := i - stack[len(stack)-1] - 1
-			maxArea = maxInt(maxArea, height*width)
+			maxArea = max(maxArea, height*width)
 
 		}
 		stack = append(stack, i)
@@ -65,7 +61,7 @@ func stackSolution1(heights []int) int {
 				width = i - stack[len(stack)-1] - 1
 			}
 			// 出栈
-			maxArea = maxInt(maxArea, height*width)
+			maxArea = max(maxArea, height*width)
 
 		}
 		stack = append(stack, i)
@@ -83,7 +79,7 @@ func stackSolution1(heights []int) int {
 		} else {
 			width = len(heights) - stack[len(stack)-1] - 1
 		}
-		maxArea = maxInt(maxArea, height*width)
+		maxArea = max(maxArea, height*width)
 	}
 
 	return maxArea
@@ -111,7 +107,7 @@ func iterSolution(heights []int) int {
 		for right < len(heights)-1 && heights[right+1] >= heights[i] {
 			right++
 		}
-		maxArea = maxInt(maxArea, (right-left+1)*h)
+		maxArea = max(maxArea, (right-left+1)*h)
 	}
 	return maxArea
 }
