@@ -1,0 +1,20 @@
+package exercise_2024
+
+// https://leetcode.cn/problems/find-minimum-in-rotated-sorted-array/?envType=study-plan-v2&envId=top-100-liked
+func findMin(nums []int) int {
+	// param check
+	if len(nums) == 0 {
+		panic("invalid param")
+	}
+	left, right := 0, len(nums)-1
+	target := nums[len(nums)-1]
+	for left < right {
+		mid := left + (right-left)>>1
+		if nums[mid] <= target {
+			right = mid
+		} else {
+			left = mid + 1
+		}
+	}
+	return nums[left]
+}
