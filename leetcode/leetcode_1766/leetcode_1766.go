@@ -38,7 +38,7 @@ func getCoprimes(nums []int, edges [][]int) []int {
 	var (
 		n     = len(nums)
 		depth = make([]int, n)
-		pos   = make([]int, n) //存储 num 到 index 的映射关系.
+		pos   = make([]int, mx) //存储 num 到 index 的映射关系.
 		ans   = make([]int, n)
 	)
 	// fill default
@@ -62,7 +62,6 @@ func getCoprimes(nums []int, edges [][]int) []int {
 				ans[curIdx] = pos[v]
 			}
 		}
-		//
 		temp := pos[cur]
 		// cur在路径上最后一次出现的位置
 		pos[cur] = curIdx

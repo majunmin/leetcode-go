@@ -11,9 +11,9 @@ func countPairs(coordinates [][]int, k int) int {
 	for _, p := range coordinates {
 		x, y := p[0], p[1]
 		for i := 0; i < k; i++ {
-			result += cnts[cnts[x^i]*2000000+y^(k-i)]
+			result += cnts[(x^i)*2000000+y^(k-i)]
 		}
-		cnts[cnts[x]*2000000+y] += 1
+		cnts[x*2000000+y] += 1
 	}
 	return result
 }
