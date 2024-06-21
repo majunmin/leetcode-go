@@ -3,16 +3,16 @@
 // Date: 2022-02-23 23:10
 package leetcode_0046
 
-//https://leetcode-cn.com/problems/permutations/
+// https://leetcode-cn.com/problems/permutations/
 func permute(nums []int) [][]int {
 	result := make([][]int, 0)
-	visited := make(map[int]struct{})
+	visited := make(map[int]bool)
 	backTrace(nums, visited, []int{}, &result)
 	return result
 
 }
 
-func backTrace(nums []int, visited map[int]struct{}, path []int, result *[][]int) {
+func backTrace(nums []int, visited map[int]bool, path []int, result *[][]int) {
 	// terminate
 	if len(path) == len(nums) {
 		dst := make([]int, len(nums))
@@ -23,14 +23,14 @@ func backTrace(nums []int, visited map[int]struct{}, path []int, result *[][]int
 
 	// for choice in choiceList
 	for _, num := range nums {
-		if _, exist := visited[num]; exist {
+		if visited[num] {
 			continue
 		}
-		visited[num] = struct{}{}
+		visited[num] = true
 		path = append(path, num)
 		backTrace(nums, visited, path, result)
 		// revert
 		path = path[:len(path)-1]
-		delete(visited, num)
+		visited[num] = false
 	}
 }

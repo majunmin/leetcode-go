@@ -9,7 +9,7 @@ func search(nums []int, target int) int {
 	//
 	left, right := 0, len(nums)-1
 	for left < right {
-		mid := left + (right-left+1)/2
+		mid := left + (right-left)>>1
 		if nums[mid] <= nums[right] {
 			if nums[mid] <= target && target <= nums[right] {
 				left = mid
@@ -24,36 +24,36 @@ func search(nums []int, target int) int {
 			}
 		}
 	}
-	if nums[left] == target {
-		return left
+	if nums[left] != target {
+		return -1
 	}
-	return -1
+	return left
 }
 
 func search2(nums []int, target int) int {
-	// param check
-	if len(nums) == 0 {
-		panic("invalid param")
-	}
-	left, right := 0, len(nums)-1
-	for left <= right {
+	var (
+		n           = len(nums)
+		left, right = -1, n
+	)
+	for left+1 < right {
 		mid := left + (right-left)>>1
-		if nums[mid] == target {
-			return mid
-		}
-		if nums[0] <= nums[mid] {
-			if nums[0] <= target && target < nums[mid] {
-				right = mid - 1
-			} else {
-				left = mid + 1
-			}
+		if isBlue(nums, mid, target) {
+			right = mid
 		} else {
-			if nums[mid] < target && target <= nums[len(nums)-1] {
-				left = mid + 1
-			} else {
-				right = mid - 1
-			}
+			left = mid
 		}
 	}
-	return -1
+	if left == -1 || nums[left] != target {
+		return -1
+	}
+	return left
+}
+
+func isBlue(nums []int, mid int, target int) bool {
+	end := nums[len(nums)-1]
+	if nums[mid] > end {
+		return target > end && target < nums[mid]
+	}
+	return target > end || target < nums[mid]
+
 }

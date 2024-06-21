@@ -9,6 +9,6 @@ import (
 )
 
 func Test_permuteUnique(t *testing.T) {
-	fmt.Println(permuteUnique([]int{1, 2, 3}))
-	fmt.Println(permuteUnique([]int{1, 2, 2}))
+	//fmt.Println(permuteUnique([]int{1, 2, 3}))
+	fmt.Println(permuteUnique([]int{1, 2, 2, 2, 2}))
 }

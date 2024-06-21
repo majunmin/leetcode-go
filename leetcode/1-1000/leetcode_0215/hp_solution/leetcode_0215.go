@@ -5,6 +5,9 @@ import (
 	"sort"
 )
 
+// hp_solution: 建立容量为k的大顶堆, 将数组元素入堆, 然后取出 pop 堆k次，找到第k大值.
+// solution2: 快速排序
+
 type maxHeap struct {
 	sort.IntSlice
 }
@@ -43,4 +46,30 @@ func findKthLargest(nums []int, k int) int {
 		kthNum = heap.Pop(mHp).(int)
 	}
 	return kthNum
+}
+
+// solution2
+// 超时啦...
+func findKthLargest2(nums []int, k int) int {
+	// param check
+	if k < 0 || k > len(nums) {
+		return -1
+	}
+	pivot := nums[len(nums)-1]
+	var cnt int
+	for i := 0; i < len(nums)-1; i++ {
+		if nums[i] <= pivot {
+			nums[i], nums[cnt] = nums[cnt], nums[i]
+			cnt++
+		}
+	}
+	nums[cnt], nums[len(nums)-1] = nums[len(nums)-1], nums[cnt]
+	if k == cnt+1 {
+		return nums[cnt] // pivot
+	}
+	if k < cnt+1 {
+		return findKthLargest2(nums[:cnt], k)
+	}
+	// k > cnt + 1
+	return findKthLargest2(nums[cnt+1:], k-cnt-1)
 }
