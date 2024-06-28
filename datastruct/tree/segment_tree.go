@@ -24,6 +24,10 @@ func NewSegmentTree(m int) *SegmentTree {
 }
 
 func (st *SegmentTree) buildSegmentTreeInternal(left, right, i int) {
+	// terminate
+	if left > right {
+		return
+	}
 
 	st.segments[i] = &Segment{
 		left:  left,

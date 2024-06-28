@@ -3,10 +3,10 @@ package unifind
 // 路径压缩
 // 按秩合并
 type UniFind struct {
-	parent []int
-	// 添加一个 rank数组,记录树的高度.
-	rank  []int
-	count int
+	parent []int `json:"parent,omitempty"`
+	// 添加一个 rank(秩)数组,记录树的高度.
+	rank  []int `json:"rank,omitempty"`
+	count int   `json:"count,omitempty"`
 }
 
 func NewUniFind(count int) *UniFind {
