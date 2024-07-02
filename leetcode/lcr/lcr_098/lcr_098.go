@@ -1,4 +1,4 @@
-package lcr_0098
+package lcr_098
 
 // https://leetcode.cn/problems/2AoeFn/
 func uniquePaths(m int, n int) int {

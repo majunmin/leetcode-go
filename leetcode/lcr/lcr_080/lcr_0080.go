@@ -1,4 +1,4 @@
-package lcr_0080
+package lcr_080
 
 // https://leetcode.cn/problems/uUsW3B/
 func combine(n int, k int) [][]int {
