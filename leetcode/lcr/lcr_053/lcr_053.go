@@ -1,4 +1,4 @@
-package leetcode_0230
+package lcr_053
 
 import . "github.com/majunmin/leetcode-go/common"
 
@@ -10,23 +10,27 @@ import . "github.com/majunmin/leetcode-go/common"
  *     Right *TreeNode
  * }
  */
-func kthSmallest(root *TreeNode, k int) int {
-	// 中序遍历 第k个值
+func inorderSuccessor(root *TreeNode, p *TreeNode) *TreeNode {
+	//
 	stack := make([]*TreeNode, 0)
+	var pFlag bool
 	node := root
 	for node != nil || len(stack) > 0 {
 		for node != nil {
-			stack = append(stack, node)
 			node = node.Left
 		}
 		// pop stack
 		node = stack[len(stack)-1]
 		stack = stack[:len(stack)-1]
-		k--
-		if k == 0 {
-			return node.Val
+
+		if pFlag {
+			return node
 		}
+		if node == p {
+			pFlag = true
+		}
+		// node
 		node = node.Right
 	}
-	return -1
+	return nil
 }

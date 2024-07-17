@@ -1,4 +1,4 @@
-package lcr_0116
+package lcr_116
 
 // https://leetcode.cn/problems/bLyHh0/
 func findCircleNum(isConnected [][]int) int {
