@@ -4,6 +4,14 @@ import . "github.com/majunmin/leetcode-go/common"
 
 // https://leetcode.cn/problems/lowest-common-ancestor-of-a-binary-tree/
 func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
+	return solution2(root, p, q)
+}
+
+// 方法二
+// 1. 通过一遍dfs遍历, 用一个 hash表 存储所有节点的父节点.
+// 2. 建立两条路径 p -> root 和 q -> root
+// 3. 两条路径的最早的交点就是  最近公共祖先节点
+func solution2(root *TreeNode, p *TreeNode, q *TreeNode) *TreeNode {
 	var (
 		parent  = make(map[*TreeNode]*TreeNode)
 		dfs     func(*TreeNode, *TreeNode)
@@ -32,11 +40,6 @@ func lowestCommonAncestor(root, p, q *TreeNode) *TreeNode {
 	}
 	return nil
 }
-
-// 方法二
-// 1. 通过一遍dfs遍历, 用一个 hash表 存储所有节点的父节点.
-// 2. 建立两条路径 p -> root 和 q -> root
-// 3. 两条路径的最早的交点就是  最近公共祖先节点
 
 // 1. 递归解法
 func solution1(root *TreeNode, p *TreeNode, q *TreeNode) *TreeNode {
