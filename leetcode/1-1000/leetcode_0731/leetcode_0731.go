@@ -4,6 +4,7 @@ var (
 	N = 1_000_000_000
 )
 
+// 线段树 解法
 type Node struct {
 	left, right *Node
 	val         int
